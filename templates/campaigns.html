@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Create Campaign</h2>
+    <form method="post" action="{{ url_for('campaigns') }}">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Campaign Name</label>
+          <input type="text" class="form-control" name="campaign_name" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-control" name="subject" value="Security Awareness Training">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Group</label>
+          <select class="form-select" name="group_id">
+            <option value="">Select group</option>
+            {% for group in groups %}
+            <option value="{{ group[0] }}">{{ group[1] }}</option>
+            {% endfor %}
+          </select>
+          <div class="form-text">If you choose a group, its member emails are added automatically to the campaign.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Landing Page</label>
+          <select class="form-select" name="landing_page_id">
+            <option value="">Select landing page</option>
+            {% for page in landing_pages %}
+            <option value="{{ page[0] }}">{{ page[1] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-8">
+          <label class="form-label">Recipient Emails</label>
+          <textarea class="form-control" name="recipient_emails" rows="3" placeholder="one@example.com, two@example.com"></textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Email Message</label>
+          <textarea class="form-control" name="message_body" rows="8" placeholder="Write your message here. The tracking link will be added automatically.">Hello, this is a security awareness simulation. Please review the message and continue to the verification page.</textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary">Send Campaign</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Campaigns</h2>
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Group</th>
+          <th>Landing Page</th>
+          <th>Targeted</th>
+          <th>Opened</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+          <td>{{ campaign[1] }}</td>
+          <td><span class="badge bg-success">{{ campaign[2] }}</span></td>
+          <td>{{ campaign[3] }}</td>
+          <td>{{ campaign[4] }}</td>
+          <td>{{ campaign[5] }}</td>
+          <td>{{ campaign[6] }}</td>
+          <td>{{ campaign[7] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mt-4">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Recipient Progress</h2>
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recipient in recipient_rows %}
+        <tr>
+          <td>{{ recipient[1] }}</td>
+          <td><span class="badge bg-secondary">{{ recipient[2] }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

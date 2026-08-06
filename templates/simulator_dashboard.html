@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Simulation Sender</h2>
+    <form method="post" action="{{ url_for('simulator_dashboard') }}" class="row g-3 mb-4">
+      <div class="col-md-8">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary w-100">Launch Simulation</button>
+      </div>
+    </form>
+
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Tracking ID</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for target in targets %}
+        <tr>
+          <td>{{ target[0] }}</td>
+          <td>{{ target[1] }}</td>
+          <td>
+            {% if target[2] == 'Envoyé' %}
+            <span class="badge bg-secondary">{{ target[2] }}</span>
+            {% elif target[2] == 'Lien cliqué' %}
+            <span class="badge bg-warning text-dark">{{ target[2] }}</span>
+            {% else %}
+            <span class="badge bg-danger">{{ target[2] }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

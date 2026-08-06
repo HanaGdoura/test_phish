@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Create Group</h2>
+    <form method="post" action="{{ url_for('groups') }}">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Group Name</label>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-control" name="description">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Member Emails</label>
+          <textarea class="form-control" name="member_emails" rows="3" placeholder="one@example.com, two@example.com"></textarea>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary">Save Group</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="card-body">
+    <h2 class="h5 mb-3">Groups</h2>
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Members</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for group in groups %}
+        <tr>
+          <td>{{ group[1] }}</td>
+          <td>{{ group[2] }}</td>
+          <td>{{ group[3] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

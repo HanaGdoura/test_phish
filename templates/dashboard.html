@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Campaigns</div>
+        <div class="h3 mt-2">{{ campaign_count }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Groups</div>
+        <div class="h3 mt-2">{{ group_count }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Landing Pages</div>
+        <div class="h3 mt-2">{{ landing_count }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Recipients</div>
+        <div class="h3 mt-2">{{ recipient_count }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Opened Link</div>
+        <div class="h3 mt-2">{{ clicked_count }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="text-muted small">Submitted Data</div>
+        <div class="h3 mt-2">{{ submitted_count }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Recent Campaigns</h2>
+          <a class="btn btn-outline-primary btn-sm" href="{{ url_for('campaigns') }}">View all</a>
+        </div>
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for campaign in recent_campaigns %}
+            <tr>
+              <td>{{ campaign[0] }}</td>
+              <td><span class="badge bg-success">{{ campaign[1] }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Recent Recipients</h2>
+          <a class="btn btn-outline-primary btn-sm" href="{{ url_for('simulator_dashboard') }}">Open simulator</a>
+        </div>
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Campaign</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for recipient in recent_targets %}
+            <tr>
+              <td>{{ recipient[0] }}</td>
+              <td><span class="badge bg-secondary">{{ recipient[1] }}</span></td>
+              <td>{{ recipient[3] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
