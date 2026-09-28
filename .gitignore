@@ -8,3 +8,7 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .DS_Store
+
+# Local SSH keys
+/home
+/home.pub
